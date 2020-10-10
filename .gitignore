@@ -2,6 +2,7 @@
 message
 token.json
 .idea
+credentials.json
 
 # Logs
 logs
