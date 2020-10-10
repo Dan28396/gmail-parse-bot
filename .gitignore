@@ -1,3 +1,7 @@
+# Manual gitignore
+message
+token.json
+
 # Logs
 logs
 *.log
