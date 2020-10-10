@@ -1,6 +1,7 @@
 # Manual gitignore
 message
 token.json
+.idea
 
 # Logs
 logs
