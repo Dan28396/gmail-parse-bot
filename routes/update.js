@@ -4,7 +4,7 @@ const fs = require('fs');
 const main = require('../js/index')
 
 router.use('/', function (req, res, next) {
-    main.getAuthorized(main.startWatching)
+    main.getMessageHistory()
     next()
 })
 
