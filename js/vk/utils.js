@@ -15,7 +15,18 @@ const formatMessages = (messages) => messages.reduce((message, currLesson) => {
 }, '');
 
 
+const invertCommands = (commands) => {
+  return Object.entries(commands).reduce((transformed, currentCommand) => {
+    return {...transformed, ...currentCommand[1].reduce((accumulatedObj, currentPhrase) => {
+        accumulatedObj[currentPhrase] = currentCommand[0];
+        return accumulatedObj;
+      }, {})};
+  }, {});
+};
+
+
 module.exports = {
   formatMessage,
-  formatMessages
+  formatMessages,
+  invertCommands,
 }

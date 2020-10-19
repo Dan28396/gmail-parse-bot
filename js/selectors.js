@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path')
 const isSameDay = require('date-fns/isSameDay');
+const isSameWeek = require('date-fns/isSameWeek');
 const parse = require('date-fns/parseISO');
 
 const {STORE_PATH} = require('./constants');
@@ -47,6 +48,19 @@ const getStoredMessagesByDay = async (day) => {
 }
 
 
+const getMessagesByWeek = (messages, date) => {
+  return messages.filter((message) => {
+    return isSameWeek(message.lessonDate, date);
+  });
+};
+
+
+const getStoredMessagesByWeek = async (day) => {
+  const storedMessages = await getStoredMessages();
+  return getMessagesByWeek(storedMessages, day);
+}
+
+
 const getStoredMessagesByProps = async (props) => {
   const storedMessages = await getStoredMessages();
   return getMessagesByProps(storedMessages, props);
@@ -65,5 +79,6 @@ module.exports = {
   getStoredMessagesByProps,
   getNewMessages,
   getStoredMessagesByDay,
+  getStoredMessagesByWeek,
 }
 
