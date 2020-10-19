@@ -26,45 +26,51 @@ const getCredentials = function () {
 }
 
 
-const getMessagesText = function (messagesArray) {
-  messagesArray.forEach((id) => {
-    messages.get({
+const getMessagesText = async function (messagesArray) {
+  const promised = messagesArray.map((id) => {
+    return new Promise(((resolve, reject) => {
+      messages.get({
+        userId: 'me',
+        id: id,
+        format: 'full',
+      }, (err, res) => {
+        if (err) {
+          return reject('The API returned an error: ' + err);
+        }
+
+        //const messageDate = res.data.internalDate.substr(0, 10);
+        const messageText = res.data.payload.parts.find((part) => part.mimeType === 'text/html').body.data;
+
+        resolve(parseMessage(messageText, id));
+      });
+    }));
+  });
+
+  return Promise.all(promised);
+}
+
+
+const getMessageHistory = async function () {
+  return new Promise(((resolve, reject) => {
+    messages.list({
       userId: 'me',
-      id: id,
-      format: 'full',
+      labelIds: ['Label_1421478860309557188']
     }, (err, res) => {
       if (err) {
-        return console.log('The API returned an error: ' + err);
+        return reject('The API returned an error: ' + err);
       }
 
-      const messageDate = res.data.internalDate.substr(0, 10);
-      const messageText = res.data.payload.parts.find((part) => part.mimeType === 'text/html').body.data;
+      const messagesArray = res.data.messages
+        .reverse()
+        .map((obj) => obj.id);
 
-      parseMessage(messageText, messageDate);
-    })
-  })
+      resolve(getMessagesText(messagesArray));
+    });
+  }));
 }
 
 
-const getMessageHistory = function () {
-  messages.list({
-    userId: 'me',
-    labelIds: ['Label_1421478860309557188']
-  }, (err, res) => {
-    if (err) {
-      return console.log('The API returned an error: ' + err);
-    }
-
-    const messagesArray = res.data.messages
-      .reverse()
-      .map((obj) => obj.id);
-
-    getMessagesText(messagesArray)
-  });
-}
-
-
-const parseMessage = function (text) {
+const parseMessage = function (text, messageId) {
   const decodedText = decodeMessage(text);
 
   return {
@@ -75,6 +81,7 @@ const parseMessage = function (text) {
     lessonDate: parseDate(get(decodedText.match(REGEXP.DATE), [1])),
     password: get(decodedText.match(REGEXP.PASSWORD), [1]),
     conferenceId: get(decodedText.match(REGEXP.CONFERENCE_ID), [1]),
+    id: messageId,
   };
 }
 
