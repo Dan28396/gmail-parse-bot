@@ -1,11 +1,17 @@
 const VkBot = require('node-vk-bot-api');
 const main = require('../index');
-const {getNewMessages} = require("../selectors");
 const {saveMessages} = require("../store");
 const {formatMessage} = require("./utils");
 const {VK_TOKEN} = require("../constants");
 
-const bot = new VkBot({ token: VK_TOKEN });
+const today = require('./commands/today');
+const tomorrow = require('./commands/tomorrow');
+
+
+const bot = new VkBot({token: VK_TOKEN});
+
+bot.command(today.keySet, today.command);
+bot.command(tomorrow.keySet, tomorrow.command);
 
 bot.command('Начать', async (ctx) => {
   const messageHistory = await main.getMessageHistory();
@@ -16,19 +22,6 @@ bot.command('Начать', async (ctx) => {
   }, '');
   ctx.reply(answer);
 });
-
-bot.command('/new', async (ctx) => {
-  const newMessages = await getNewMessages();
-
-  const answer = newMessages.reduce((message, currLesson) => {
-    return message + " " + formatMessage(currLesson);
-  }, '');
-
-  if (newMessages.length) {
-    ctx.reply(answer);
-  }
-  ctx.reply('Новых сообщений нет!');
-})
 
 bot.startPolling((err) => {
   if (err) {

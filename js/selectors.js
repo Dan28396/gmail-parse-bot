@@ -1,17 +1,24 @@
 const fs = require('fs');
 const path = require('path')
-const {STORE_PATH} = require("./constants");
+const isSameDay = require('date-fns/isSameDay');
+const parse = require('date-fns/parseISO');
 
+const {STORE_PATH} = require('./constants');
+const {promisify, difference} = require('./utils');
 
-const { promisify, difference } = require('./utils');
 
 const readFile = promisify(fs.readFile);
 
-
-const getStoredMessages = async () =>  {
+const getStoredMessages = async () => {
   try {
     const messages = await readFile(path.join(STORE_PATH, 'messages.txt'), 'utf-8');
-    return JSON.parse(messages);
+    const parsedMessages = JSON.parse(messages);
+
+    parsedMessages.forEach(
+      message => message.lessonDate = parse(message.lessonDate)
+    );
+
+    return parsedMessages;
   } catch (e) {
     return [];
   }
@@ -27,9 +34,17 @@ const getMessagesByProps = (messages, props) => {
 };
 
 
-getMessagesByDate = (messages, date) => {
-
+const getMessagesByDay = (messages, date) => {
+  return messages.filter((message) => {
+    return isSameDay(message.lessonDate, date);
+  });
 };
+
+
+const getStoredMessagesByDay = async (day) => {
+  const storedMessages = await getStoredMessages();
+  return getMessagesByDay(storedMessages, day);
+}
 
 
 const getStoredMessagesByProps = async (props) => {
@@ -48,6 +63,7 @@ const getNewMessages = async (messages) => {
 module.exports = {
   getStoredMessages,
   getStoredMessagesByProps,
-  getNewMessages
+  getNewMessages,
+  getStoredMessagesByDay,
 }
 

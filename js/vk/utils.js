@@ -9,6 +9,13 @@ const formatMessage = (lessonData) => {
   );
 };
 
+
+const formatMessages = (messages) => messages.reduce((message, currLesson) => {
+  return message + " " + formatMessage(currLesson);
+}, '');
+
+
 module.exports = {
   formatMessage,
+  formatMessages
 }
