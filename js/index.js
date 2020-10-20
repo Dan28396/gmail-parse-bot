@@ -2,6 +2,7 @@ const {google} = require('googleapis');
 const fs = require('fs');
 const path = require('path')
 
+const {saveMessages} = require("./store");
 const {REGEXP} = require('./constants');
 const service = path.join(__dirname, '../public/service/');
 const {get, parseDate, decodeMessage} = require("./utils");
@@ -85,6 +86,13 @@ const parseMessage = function (text, messageId) {
   };
 }
 
+const updateMessages = async () => {
+  const messageHistory = await getMessageHistory();
+  await saveMessages(messageHistory);
+
+  console.log('Updated!');
+};
+
 const auth = getCredentials();
 const messages = google.gmail({version: 'v1', auth}).users.messages;
 
@@ -92,5 +100,6 @@ module.exports = {
   getCredentials,
   getMessagesText,
   getMessageHistory,
-  parseMessage
+  parseMessage,
+  updateMessages,
 }

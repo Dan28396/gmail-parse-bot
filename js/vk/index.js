@@ -17,13 +17,9 @@ bot.command(tomorrow.keySet, tomorrow.command);
 bot.command(week.keySet, week.command);
 bot.command(weekday.keySet, weekday.command);
 
+main.updateMessages();
 
-setInterval( async () => {
-  const messageHistory = await main.getMessageHistory();
-  await saveMessages(messageHistory);
-
-  console.log('Updated!');
-}, 1000 * 60 * 15);
+setInterval( main.updateMessages, 1000 * 60 * 15);
 
 bot.command('Начать', async (ctx) => {
   const messageHistory = await main.getMessageHistory();
