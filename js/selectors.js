@@ -12,7 +12,7 @@ const readFile = promisify(fs.readFile);
 
 const getStoredMessages = async () => {
   try {
-    const messages = await readFile(path.join(STORE_PATH, 'messages.txt'), 'utf-8');
+    const messages = await readFile(path.join(STORE_PATH, 'messages.json'), 'utf-8');
     const parsedMessages = JSON.parse(messages);
 
     parsedMessages.forEach(

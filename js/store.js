@@ -8,7 +8,7 @@ const { promisify } = require('./utils');
 const writeFile = promisify(fs.writeFile);
 
 const saveMessages = async (messages) => {
-  return writeFile(path.join(STORE_PATH, 'messages.txt'), JSON.stringify(messages), 'utf-8');
+  return writeFile(path.join(STORE_PATH, 'messages.json'), JSON.stringify(messages), 'utf-8');
 }
 
 module.exports = {
