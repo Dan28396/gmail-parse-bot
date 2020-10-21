@@ -1,5 +1,6 @@
 # Manual gitignore
 .idea
+public/store/messages.json
 
 # Logs
 logs

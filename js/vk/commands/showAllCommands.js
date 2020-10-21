@@ -1,5 +1,5 @@
 const Markup = require('node-vk-bot-api/lib/markup');
-const {weekSchedule} = require("../phrases/common-phrases");
+const {weekSchedule, info} = require("../phrases/common-phrases");
 
 /**
  * words: ['Другое']
@@ -10,7 +10,7 @@ const {weekSchedule} = require("../phrases/common-phrases");
 const keySet = ['другое'];
 
 const command = (ctx) =>
-  ctx.reply(weekSchedule(), null, Markup
+  ctx.reply(info() + weekSchedule(), null, Markup
     .keyboard([
       'понедельник',
       'вторник',
