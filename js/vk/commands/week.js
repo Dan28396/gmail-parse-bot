@@ -9,7 +9,7 @@ const {getStoredMessagesByWeek} = require("../../selectors");
  * выводит расписание на текущую неделю
  */
 
-const keySet = ['2', 'week', 'неделя', 'расписание на неделю'];
+const keySet = ['week', 'неделя', 'расписание на неделю'];
 
 const command = async (ctx) => {
   const messages = await getStoredMessagesByWeek(Date.now());

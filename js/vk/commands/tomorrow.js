@@ -11,7 +11,7 @@ const {getStoredMessagesByDay} = require("../../selectors");
  * выводит расписание на завтрашний день
  */
 
-const keySet = ['1', 'tomorrow', 'завтра', 'расписание завтра', 'расписание на завтра', 'пары завтра'];
+const keySet = ['tomorrow', 'завтра', 'расписание завтра', 'расписание на завтра', 'пары завтра'];
 
 const command = async (ctx) => {
   const messages = await getStoredMessagesByDay(addDay(Date.now(), 1));

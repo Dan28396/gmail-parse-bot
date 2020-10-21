@@ -9,7 +9,7 @@ const {getStoredMessagesByDay} = require("../../selectors");
  * выводит расписание на сегодняшний день
  */
 
-const keySet = ['0', 'сегодня', 'today', 'пары сегодня', 'расписание сегодня', 'расписание на сегодня'];
+const keySet = ['сегодня', 'today', 'пары сегодня', 'расписание сегодня', 'расписание на сегодня'];
 
 const command = async (ctx) => {
   const messages = await getStoredMessagesByDay(Date.now());
