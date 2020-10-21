@@ -2,12 +2,12 @@ const {greeting} = require("../phrases/common-phrases");
 const Markup = require('node-vk-bot-api/lib/markup');
 
 /**
- * words: ['начать']
+ * words: ['начать', 'старт', 'start']
  *
  * активирует меню
  */
 
-const keySet = ['начать'];
+const keySet = ['начать', 'старт', 'start'];
 
 const command = (ctx) => {
   ctx.reply(greeting(), null, Markup
