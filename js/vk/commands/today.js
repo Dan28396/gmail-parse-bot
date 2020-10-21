@@ -1,5 +1,5 @@
 const {formatMessages} = require("../utils");
-const {noLessonsAvailable} = require("../phrases/commonPhrases");
+const {noLessonsAvailable} = require("../phrases/common-phrases");
 const {getStoredMessagesByDay} = require("../../selectors");
 
 
@@ -9,7 +9,7 @@ const {getStoredMessagesByDay} = require("../../selectors");
  * выводит расписание на сегодняшний день
  */
 
-const keySet = ['0', 'сегодня', 'today', 'пары сегодня', 'расписание сегодня'];
+const keySet = ['0', 'сегодня', 'today', 'пары сегодня', 'расписание сегодня', 'расписание на сегодня'];
 
 const command = async (ctx) => {
   const messages = await getStoredMessagesByDay(Date.now());

@@ -1,7 +1,7 @@
 const addDay = require('date-fns/addDays');
 
 const {formatMessages} = require("../utils");
-const {noLessonsAvailable} = require("../phrases/commonPhrases");
+const {noLessonsAvailable} = require("../phrases/common-phrases");
 const {getStoredMessagesByDay} = require("../../selectors");
 
 

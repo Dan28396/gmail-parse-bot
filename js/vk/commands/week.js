@@ -1,5 +1,5 @@
 const {formatMessages} = require("../utils");
-const {noLessonsAvailable} = require("../phrases/commonPhrases");
+const {noLessonsAvailable} = require("../phrases/common-phrases");
 const {getStoredMessagesByWeek} = require("../../selectors");
 
 

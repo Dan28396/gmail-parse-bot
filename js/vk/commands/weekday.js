@@ -1,5 +1,5 @@
 const {formatMessages} = require("../utils");
-const {noLessonsAvailable} = require("../phrases/commonPhrases");
+const {noLessonsAvailable} = require("../phrases/common-phrases");
 const {getStoredMessagesByDay} = require("../../selectors");
 const {invertCommands} = require('../utils');
 const {getDayByDayOfWeek} = require('../../utils');
@@ -28,8 +28,6 @@ const keySet = Object.values(commands).flat();
 
 const command = async (ctx) => {
   const dayIndex = DAY_OF_WEEK[invertedCommands[ctx.message.text]];
-
-  console.log(getDayByDayOfWeek(dayIndex));
 
   const messages = await getStoredMessagesByDay(getDayByDayOfWeek(dayIndex));
 
