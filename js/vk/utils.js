@@ -1,8 +1,9 @@
+const format = require('date-fns/format')
 const formatMessage = (lessonData) => {
   return (
     `Предмет: ${lessonData.subject}
 Тип занятия: ${lessonData.lessonType}
-Дата и время проведения: ${lessonData.lessonDate}
+Дата и время проведения: ${format(lessonData.lessonDate, 'dd.MM.yyyy HH:mm')}
 Ссылка в zoom: ${lessonData.zoomLink}
 
 `

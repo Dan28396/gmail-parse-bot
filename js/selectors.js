@@ -25,6 +25,17 @@ const getStoredMessages = async () => {
   }
 }
 
+const getStoredSubscribers = async () => {
+  try {
+    const subscribers = await readFile(path.join(STORE_PATH, 'subscribers.json'), 'utf-8');
+    const parsedSubscribers = JSON.parse(messages);
+
+    return parsedSubscribers;
+  } catch (e) {
+    return [];
+  }
+}
+
 
 const getMessagesByProps = (messages, props) => {
   return messages.filter((message) => {

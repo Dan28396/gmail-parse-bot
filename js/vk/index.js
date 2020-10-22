@@ -9,7 +9,8 @@ const {onStart, onUpdate} = require("./event-handlers");
 const showAllCommands = require('./commands/showAllCommands');
 const afterTomorrow = require('./commands/afterTomorrow');
 const start = require('./commands/start');
-const byDate = require('./commands/byDate')
+const byDate = require('./commands/byDate');
+const subsctibe = require('./commands/subscribe')
 
 const bot = new VkBot({token: VK_TOKEN});
 
@@ -21,11 +22,12 @@ bot.command(showAllCommands.keySet, showAllCommands.command);
 bot.command(afterTomorrow.keySet, afterTomorrow.command);
 bot.command(start.keySet, start.command);
 bot.command(byDate.keySet, byDate.command);
+bot.command(subsctibe.keySet, subsctibe.command)
 
 bot.startPolling((err) => {
-  if (err) {
-    console.error(err);
-  }
+    if (err) {
+        console.error(err);
+    }
 });
 
 onStart();
