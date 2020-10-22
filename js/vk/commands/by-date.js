@@ -13,7 +13,7 @@ function isDateValid(dateString) {
     return dateString.match(dateRegex) !== null;
 }
 
-const keySet = /^[0-9]*.[0-9]*.[0-9]*$/g;
+const keySet = /^[0-9]*\.[0-9]*\.[0-9]*$/g;
 
 const command = async (ctx) => {
     const parsedMessage = ctx.message.text.split('.');

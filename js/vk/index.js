@@ -6,11 +6,11 @@ const tomorrow = require('./commands/tomorrow');
 const week = require('./commands/week');
 const weekday = require('./commands/weekday');
 const {onStart, onUpdate} = require("./event-handlers");
-const showAllCommands = require('./commands/showAllCommands');
-const afterTomorrow = require('./commands/afterTomorrow');
+const showAllCommands = require('./commands/show-all-commands');
+const afterTomorrow = require('./commands/after-tomorrow');
 const start = require('./commands/start');
-const byDate = require('./commands/byDate');
 const subsctibe = require('./commands/subscribe')
+const byDate = require('./commands/by-date')
 
 const bot = new VkBot({token: VK_TOKEN});
 

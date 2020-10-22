@@ -16,6 +16,9 @@ const REGEXP = {
 const VK_TOKEN = '95cdfb60cf0cd1915d9f202906aa4077011fafdc73b64a3fbf207d39284e5093b137e196105ee32703066';
 
 
+GROUP_ID = 199564726;
+
+
 const TIME_ZONE = 3;
 
 
@@ -24,4 +27,5 @@ module.exports = {
   TIME_ZONE,
   VK_TOKEN,
   STORE_PATH,
+  GROUP_ID,
 }
