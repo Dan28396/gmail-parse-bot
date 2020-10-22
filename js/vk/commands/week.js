@@ -4,7 +4,7 @@ const {getStoredMessagesByWeek} = require("../../selectors");
 
 
 /**
- * words: [2, 'week', 'неделя', 'расписание на неделю']
+ * words: ['week', 'неделя', 'расписание на неделю']
  *
  * выводит расписание на текущую неделю
  */
