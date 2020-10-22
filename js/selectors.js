@@ -28,14 +28,16 @@ const getStoredMessages = async () => {
 const getStoredSubscribers = async () => {
   try {
     const subscribers = await readFile(path.join(STORE_PATH, 'subscribers.json'), 'utf-8');
-    const parsedSubscribers = JSON.parse(messages);
-
-    return parsedSubscribers;
+    return JSON.parse(subscribers);
   } catch (e) {
     return [];
   }
 }
 
+const isSubscribed = async (userId) => {
+  const subscribers = await getStoredSubscribers();
+  return subscribers.includes(userId);
+}
 
 const getMessagesByProps = (messages, props) => {
   return messages.filter((message) => {
@@ -87,6 +89,8 @@ const getNewMessages = async (messages) => {
 
 module.exports = {
   getStoredMessages,
+  getStoredSubscribers,
+  isSubscribed,
   getStoredMessagesByProps,
   getNewMessages,
   getStoredMessagesByDay,

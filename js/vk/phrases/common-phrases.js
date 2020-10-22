@@ -5,6 +5,8 @@ const dateNotValid = () => `Неверный формат даты, пожалу
 const info = () => `Для получения списка занятий на конкретную дату, введите ее в формате: dd.mm.yyyy.\n`;
 const subscribed = () => `Ты подписался на ежедневную рассылку!`;
 const unsubscribed = () => `Ты отписался на ежедневной рассылки!`;
+const alreadySubscribed = () => `Ты уже подписан!`;
+const isNotSubscribed = () => `Ты не подписан!`;
 
 module.exports = {
   noLessonsAvailable,
@@ -13,5 +15,7 @@ module.exports = {
   dateNotValid,
   info,
   subscribed,
-  unsubscribed
+  unsubscribed,
+  alreadySubscribed,
+  isNotSubscribed
 }

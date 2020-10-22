@@ -1,21 +1,24 @@
-const today = require('./today');
-const tomorrow = require('./tomorrow');
-const week = require('./week');
-const weekday = require('./weekday');
-const showAllCommands = require('./show-all-commands');
-const afterTomorrow = require('./after-tomorrow');
-const start = require('./start');
-const subscribe = require('./subscribe')
-const byDate = require('./by-date')
+const commands = [
+    today = require('./today'),
+    tomorrow = require('./tomorrow'),
+    week = require('./week'),
+    weekday = require('./weekday'),
+    showAllCommands = require('./show-all-commands'),
+    afterTomorrow = require('./after-tomorrow'),
+    start = require('./start'),
+    subscribe = require('./subscribe'),
+    unsubscribe = require('./unsubscribe'),
+    byDate = require('./by-date')
+]
+
+const useBotCommands = (bot, commands) => {
+    commands.forEach((com) => {
+        bot.command(com.keySet, com.command)
+    })
+}
+
 
 module.exports = {
-  today,
-  tomorrow,
-  week,
-  weekday,
-  showAllCommands,
-  afterTomorrow,
-  start,
-  subscribe,
-  byDate
+    commands,
+    useBotCommands
 }

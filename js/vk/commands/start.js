@@ -1,5 +1,6 @@
 const {greeting} = require("../phrases/common-phrases");
-const Markup = require('node-vk-bot-api/lib/markup');
+const {isSubscribed} = require('../../selectors');
+const {unsubscribedSet, subscribedSet} = require('../keyboards-sets/keyboards');
 
 /**
  * words: ['начать', 'старт', 'start']
@@ -9,20 +10,12 @@ const Markup = require('node-vk-bot-api/lib/markup');
 
 const keySet = ['начать', 'старт', 'start'];
 
-const command = (ctx) => {
-  ctx.reply(greeting(), null, Markup
-    .keyboard([[
-      Markup.button('Расписание на сегодня', 'primary'),
-    ], [
-      Markup.button('Расписание на завтра'),
-      Markup.button('Расписание на неделю'),
-    ], [
-      Markup.button('Другое'),
-    ]
-    ]));
+const command = async (ctx) => {
+    const keyboard = await isSubscribed(ctx.message.peer_id) ? subscribedSet : unsubscribedSet;
+    ctx.reply(greeting(), null, keyboard);
 }
 
 module.exports = {
-  keySet,
-  command,
+    keySet,
+    command,
 }

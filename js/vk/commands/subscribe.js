@@ -1,36 +1,32 @@
-const {formatMessages} = require("../utils");
-const {subscribed} = require("../phrases/common-phrases");
-const Markup = require('node-vk-bot-api/lib/markup');
-
-const {saveSubscriber} = require("../../store")
+const {subscribed, alreadySubscribed} = require("../phrases/common-phrases");
+const {saveSubscriber} = require("../../store");
+const {isSubscribed} = require('../../selectors');
+const {subscribedSet} = require('../keyboards-sets/keyboards')
 
 
 /**
- * words: [подписаться]
+ * words: [подписаться, subscribe]
  *
- * выводит расписание на сегодняшний день
+ * подписывает пользователя на ежедневную подписку
  */
 
-const keySet = ['подписаться'];
+const keySet = ['подписаться', 'subscribe'];
 
 const command = async (ctx) => {
     let answer;
-    await saveSubscriber(ctx.message.peer_id).then(() => {
-        answer = subscribed();
-    }, (err) => {
-        answer = `Что-то пошло не так, попробуйте позже!`
-        console.log(err)
-    });
-    ctx.reply(answer, null, Markup
-        .keyboard([[
-            Markup.button('qwer', 'primary'),
-        ], [
-            Markup.button('Рqwer'),
-            Markup.button('qwer на неделю'),
-        ], [
-            Markup.button('Другое'),
-        ]
-        ]));
+
+    if(await isSubscribed(ctx.message.peer_id)){
+        answer = alreadySubscribed();
+    } else {
+        await saveSubscriber(ctx.message.peer_id).then(() => {
+            answer = subscribed();
+        }, (err) => {
+            answer = `Что-то пошло не так, попробуйте позже!`;
+            console.error(err);
+        });
+    }
+
+    ctx.reply(answer, null, subscribedSet);
 }
 
 module.exports = {
