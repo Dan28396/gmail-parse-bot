@@ -1,5 +1,5 @@
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 const isSameDay = require('date-fns/isSameDay');
 const isSameWeek = require('date-fns/isSameWeek');
 const parse = require('date-fns/parseISO');

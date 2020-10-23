@@ -6,6 +6,9 @@ const {saveMessages} = require("./store");
 const {REGEXP} = require('./constants');
 const service = path.join(__dirname, '../public/service/');
 const {get, parseDate, decodeMessage} = require("./utils");
+const nodeSchedule = require('node-schedule');
+const {getStoredSubscribers, getStoredMessagesByDay} = require('./selectors');
+const {formatMessages} = require("./vk/utils");
 
 const getCredentials = function () {
   const token = fs.readFileSync(service + 'token.json', 'utf-8');
@@ -93,6 +96,17 @@ const updateMessages = async () => {
   console.log('Updated!');
 };
 
+const scheduleDailyMailing = (bot) => {
+  nodeSchedule.scheduleJob('20 * * * * *', async () => {
+    const subscribers = await getStoredSubscribers();
+    const messages = await getStoredMessagesByDay(Date.now());
+    const formatedMessages = formatMessages(messages);
+    if (messages.length && subscribers.length) {
+      bot.sendMessage(subscribers, formatedMessages)
+    }
+  })
+}
+
 const auth = getCredentials();
 const messages = google.gmail({version: 'v1', auth}).users.messages;
 
@@ -102,4 +116,5 @@ module.exports = {
   getMessageHistory,
   parseMessage,
   updateMessages,
+  scheduleDailyMailing
 }
