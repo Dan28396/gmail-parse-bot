@@ -97,7 +97,7 @@ const updateMessages = async () => {
 };
 
 const scheduleDailyMailing = (bot) => {
-  nodeSchedule.scheduleJob('20 * * * * *', async () => {
+  nodeSchedule.scheduleJob('* * 8 * * *', async () => {
     const subscribers = await getStoredSubscribers();
     const messages = await getStoredMessagesByDay(Date.now());
     const formatedMessages = formatMessages(messages);
