@@ -63,7 +63,7 @@ const getStoredMessagesByDay = async (day) => {
 
 const getMessagesByWeek = (messages, date) => {
   return messages.filter((message) => {
-    return isSameWeek(message.lessonDate, date);
+    return isSameWeek(message.lessonDate, date, {weekStartsOn: 1});
   });
 };
 
